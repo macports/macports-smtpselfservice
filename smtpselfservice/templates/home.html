@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>SMTP Self Service</title>
+
+    <link href="{{ url_for('static', filename='selfservice.css') }}" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <div class="d-flex h-100 flex-column">
+      <header class="w-100 mb-auto">
+        <div class="masthead inner mx-auto">
+          <h3 class="masthead-brand"><span class="sr-only">MacPorts</span></h3>
+        </div>
+      </header>
+
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+              <div
+                class="alert alert-{{ category if category != 'message' else 'primary' }}"
+                role="alert">
+                  {{ message }}
+              </div>
+          {% endfor %}
+      {% endwith %}
+
+      <main role="main" class="inner cover mx-auto">
+        <h1 class="cover-heading">Set your SMTP password.</h1>
+
+        <form action="" method="post" novalidate>
+            <div class="form-group my-5">
+                {{ form.hidden_tag() }}
+                {{ form.password(class_="form-control form-control-lg", size=32) }}
+                {% if form.password.errors %}
+                    <div class="bg-danger text-white w-100 px-3 py-1 mt-1 rounded">
+                    {% for error in form.password.errors %}
+                        <span>{{ error }}</span>
+                    {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            {{ form.submit(class_="btn btn-primary form-control-lg") }}
+        </form>
+
+        <div class="mt-5 py-3 px-3 rounded text-muted bg-light">
+            Some suitable options for passwords, generated using the
+            <a href="https://en.wikipedia.org/wiki/Diceware" title="Diceware on Wikipedia">Diceware</a> method are:
+            <ul class="list-group text-left mt-3">
+                {% for password in dicewares %}
+                    <li class="list-group-item">{{ password }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+      </main>
+
+      <footer class="w-100 mt-auto">
+        <div class="mastfoot mx-auto inner">
+          <p>Contact the <a href="https://lists.macports.org/mailman/listinfo/macports-infra">infrastructure team</a>.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
