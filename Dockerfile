@@ -21,9 +21,15 @@ RUN apk add --no-cache \
 	py3-jeepney@community \
 	py3-keyring@community
 
+
+ENV HOME /tmp/home
+RUN mkdir /tmp/home && chown $user /tmp/home
+
 WORKDIR /app
-COPY --chown=$user pyproject.toml poetry.lock ./
-COPY --chown=$user smtpselfservice/ ./smtpselfservice/
+
+COPY pyproject.toml poetry.lock ./
+COPY smtpselfservice/ ./smtpselfservice/
+RUN chown -R $user .
 
 USER $user
 
