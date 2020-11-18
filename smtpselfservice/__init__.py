@@ -1,6 +1,7 @@
 """
 A Flask webapp to allow setting a password in a database.
 """
+# SPDX-License-Identifier: BSD-2-Clause
 from flask import Flask, flash, url_for, redirect, render_template, request
 
 from passlib.hash import argon2

@@ -1,6 +1,7 @@
 """
 GitHub API wrapper to obtain the localpart of our preferred email domain.
 """
+# SPDX-License-Identifier: BSD-2-Clause
 
 import requests
 

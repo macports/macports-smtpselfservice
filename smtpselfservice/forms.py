@@ -1,6 +1,8 @@
 """
 Forms used for setting the password.
 """
+# SPDX-License-Identifier: BSD-2-Clause
+
 from flask_wtf import FlaskForm
 from wtforms import PasswordField, SubmitField
 from wtforms.validators import DataRequired, Length

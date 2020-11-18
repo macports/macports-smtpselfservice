@@ -1,6 +1,7 @@
 """
 Module containing the configuration options for this Flask application.
 """
+# SPDX-License-Identifier: BSD-2-Clause
 
 import os
 import secrets
