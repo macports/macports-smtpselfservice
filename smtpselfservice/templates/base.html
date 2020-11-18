@@ -1,0 +1,52 @@
+<!doctype html>
+<!-- vim:et:sts=2:sw=2:ts=2
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% if title %}
+    <title>SMTP Self Service – {{ title }}</title>
+    {% else %}
+    <title>SMTP Self Service</title>
+    {% endif %}
+
+    <link href="{{ url_for('static', filename='selfservice.css') }}" rel="stylesheet">
+  </head>
+
+  <body class="text-center">
+    <div class="d-flex h-100 flex-column">
+      <header class="w-100 mb-auto">
+        <div class="masthead inner mx-auto">
+          <h3 class="masthead-brand"><span class="sr-only">MacPorts</span></h3>
+          <nav class="nav nav-masthead justify-content-center">
+            <a class="nav-link" href="{{ url_for('home') }}">Change Password</a>
+            <a class="nav-link" href="{{ url_for('settings') }}">SMTP Settings</a>
+          </nav>
+        </div>
+      </header>
+
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+      <div
+        class="alert alert-{{ category if category != 'message' else 'primary' }}"
+        role="alert">
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endwith %}
+
+      <main role="main" class="inner cover mx-auto">
+        {% block content %}{% endblock %}
+      </main>
+
+      <footer class="w-100 mt-auto">
+        <div class="mastfoot mx-auto inner">
+          <p>Contact the <a href="https://lists.macports.org/mailman/listinfo/macports-infra">infrastructure team</a>.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

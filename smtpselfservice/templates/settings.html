@@ -1,0 +1,54 @@
+<!-- vim:et:ts=2:sts=2:sw=2
+-->
+{% extends "base.html" %}
+{% block content %}
+<h1 class="cover-heading">SMTP server settings</h1>
+
+<p class="lead mt-5">
+Configure your mail client to send mails from your MacPorts address
+using the following settings:
+
+<ul class="list-group mt-5 rounded bg-light">
+  <li class="list-group-item">
+    <div class="container">
+      <div class="row">
+        <div class="col font-weight-bold text-right w-50 px-1">SMTP server:</div>
+        <div class="col text-left w-50 px-1">mail.macports.org</div>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="container">
+      <div class="row">
+        <div class="col font-weight-bold text-right w-50 px-1">port:</div>
+        <div class="col text-left w-50 px-1">587 (submission)</div>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="container">
+      <div class="row">
+        <div class="col font-weight-bold text-right w-50 px-1">authentication method:</div>
+        <div class="col text-left w-50 px-1">plain</div>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="container">
+      <div class="row">
+        <div class="col font-weight-bold text-right w-50 px-1">username:</div>
+        <div class="col text-left w-50 px-1 font-italic">you@macports.org</div>
+      </div>
+    </div>
+  </li>
+  <li class="list-group-item">
+    <div class="container">
+      <div class="row">
+        <div class="col font-weight-bold text-right w-50 px-1">password:</div>
+        <div class="col text-left w-50 px-1 font-italic">your-password</div>
+      </div>
+    </div>
+  </li>
+</ul>
+</p>
+{% endblock %}

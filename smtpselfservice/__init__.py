@@ -48,6 +48,7 @@ def home():
                             (username, domain, password),
                         )
                 flash("Password successfully changed.", "success")
+                return redirect(url_for("settings"))
             finally:
                 conn.close()
         except psycopg2.Error as psycopg2e:
@@ -61,3 +62,10 @@ def home():
     for _ in range(5):
         dicewares.append(diceware.get_passphrase())
     return render_template("home.html", form=form, dicewares=dicewares)
+
+@app.route("/settings", methods=["GET", "POST"])
+def settings():
+    """
+    Show details about the settings to configure in the mailclient.
+    """
+    return render_template("settings.html", title="Settings")
