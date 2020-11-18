@@ -1,6 +1,10 @@
 <!doctype html>
 <!-- vim:et:sts=2:sw=2:ts=2
 -->
+{% set nav = [
+  ("home", "Change Password"),
+  ("settings", "SMTP Settings")
+] -%}
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -21,8 +25,9 @@
         <div class="masthead inner mx-auto">
           <h3 class="masthead-brand"><span class="sr-only">MacPorts</span></h3>
           <nav class="nav nav-masthead justify-content-center">
-            <a class="nav-link" href="{{ url_for('home') }}">Change Password</a>
-            <a class="nav-link" href="{{ url_for('settings') }}">SMTP Settings</a>
+            {% for id, text in nav %}
+              <a class="nav-link {{ 'active' if request.endpoint == id else '' }}" href="{{ url_for(id) }}">{{ text|e }}</a>
+            {% endfor %}
           </nav>
         </div>
       </header>
