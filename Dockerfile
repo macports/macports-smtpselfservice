@@ -4,18 +4,9 @@ ARG user
 ENV FLASK_APP smtpselfservice
 ENV FLASK_ENV production
 
-RUN apk add --no-cache \
-	build-base \
-	cargo \
-	libffi-dev \
-	postgresql-dev \
-	py3-pip \
-	py3-virtualenv \
-	python3 \
-	python3-dev \
-	rust
-
-RUN virtualenv -p /usr/bin/python3 /usr/lib/poetry && . /usr/lib/poetry/bin/activate && pip install poetry
+RUN apk add --no-cache build-base cargo
+RUN apk add --no-cache libffi-dev postgresql-dev python3-dev
+RUN apk add --no-cache poetry py3-platformdirs
 
 ENV HOME /tmp/home
 RUN mkdir /tmp/home && chown $user /tmp/home
@@ -28,9 +19,9 @@ RUN chown -R $user .
 
 USER $user
 
-RUN /usr/lib/poetry/bin/poetry config virtualenvs.in-project true
-RUN /usr/lib/poetry/bin/poetry install --no-dev --verbose --no-ansi --no-interaction
+RUN poetry config virtualenvs.in-project true
+RUN poetry install --no-dev --verbose --no-ansi --no-interaction
 
 EXPOSE 5000/tcp
-ENTRYPOINT ["/usr/lib/poetry/bin/poetry", "run"]
+ENTRYPOINT ["poetry", "run"]
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "smtpselfservice.wsgi:app"]
