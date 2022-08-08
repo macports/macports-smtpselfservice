@@ -43,7 +43,7 @@ if [ "$IMAGES" -gt 0 ]; then
 fi
 
 printf "Rebuilding container %s with tag %s\n" "$CONTAINERNAME" "$NEWREV-$TIMESTAMP"
-docker build --no-cache --build-arg user="$(id -u smtpselfservice):$(id -g smtpselfservice)" -t "$CONTAINERNAME:$NEWREV-$TIMESTAMP" .
+docker build --pull --no-cache --build-arg user="$(id -u smtpselfservice):$(id -g smtpselfservice)" -t "$CONTAINERNAME:$NEWREV-$TIMESTAMP" .
 
 printf "Rebuild successful, tagging as %s:latest\n" "$CONTAINERNAME"
 docker tag "$CONTAINERNAME:$NEWREV-$TIMESTAMP" "$CONTAINERNAME:latest"
