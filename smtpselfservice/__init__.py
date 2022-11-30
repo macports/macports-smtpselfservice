@@ -63,6 +63,7 @@ def home():
         dicewares.append(diceware.get_passphrase())
     return render_template("home.html", form=form, dicewares=dicewares)
 
+
 @app.route("/settings", methods=["GET", "POST"])
 def settings():
     """
