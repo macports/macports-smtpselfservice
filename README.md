@@ -18,7 +18,7 @@ project directory, rather than in some cache directory.
 Start the server using
 
 ```
-FLASK_APP=smtpselfservice FLASK_ENV=development poetry run flask run
+FLASK_APP=smtpselfservice FLASK_DEBUG=1 poetry run flask run
 ```
 
 The application will then be running on localhost:5000. Note that for the
