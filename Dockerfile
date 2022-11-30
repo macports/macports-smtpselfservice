@@ -2,7 +2,6 @@ FROM alpine:edge
 ARG user
 
 ENV FLASK_APP smtpselfservice
-ENV FLASK_ENV production
 
 RUN apk add --no-cache build-base cargo
 RUN apk add --no-cache libffi-dev postgresql-dev python3-dev
