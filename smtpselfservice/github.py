@@ -38,6 +38,7 @@ def get_user(token, domain):
                 "accept": "application/vnd.github.v3+json",
                 "per_page": "100",
             },
+            timeout=30,
         )
         req.raise_for_status()
         for item in req.json():
