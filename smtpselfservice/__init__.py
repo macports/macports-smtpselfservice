@@ -7,7 +7,7 @@ from flask import Flask, flash, url_for, redirect, render_template, request
 from passlib.hash import argon2
 
 import diceware
-import psycopg2
+import psycopg
 
 from smtpselfservice.config import Config
 from smtpselfservice.forms import PasswordForm
@@ -28,14 +28,14 @@ def home():
         password = f"{{ARGON2ID}}{argon2.hash(form.password.data)}"
 
         try:
-            conn = psycopg2.connect(app.config["DATABASE_URI"])
             username, domain = get_user(
                 request.headers.get("X-Forwarded-Access-Token"),
                 app.config["PREFERRED_EMAIL_DOMAIN"],
             )
-            try:
-                with conn:
-                    with conn.cursor() as cur:
+            # pylint: disable=not-context-manager
+            with psycopg.connect(app.config["DATABASE_URI"]) as conn:
+                with conn.cursor() as cur:
+                    with conn.transaction():
                         cur.execute(
                             """
                             INSERT INTO
@@ -47,12 +47,10 @@ def home():
                             """,
                             (username, domain, password),
                         )
-                flash("Password successfully changed.", "success")
-                return redirect(url_for("settings"))
-            finally:
-                conn.close()
-        except psycopg2.Error as psycopg2e:
-            flash(f"Error updating password: {psycopg2e!s}", "danger")
+            flash("Password successfully changed.", "success")
+            return redirect(url_for("settings"))
+        except psycopg.Error as psycopge:
+            flash(f"Error updating password: {psycopge!s}", "danger")
         except GitHubApiError as githube:
             flash(f"Error determining your email address: {githube!s}", "danger")
 
