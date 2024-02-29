@@ -14,7 +14,7 @@
 set -euo pipefail
 
 # The number of old containers to keep for this Dockerfile
-KEEP_OLD_VERSIONS=5
+KEEP_OLD_VERSIONS=3
 
 THISDIR=$(cd "$(dirname "$0")" && pwd)
 
